@@ -8,7 +8,7 @@ public class CountdownApiUrlBuilder {
 		this.apiHost = apiHost;
 	}
 	
-	public String getStopBoardUrl(String stopId) {
+	public String getStopBoardUrl(int stopId) {
 		return apiHost + "/stopBoard/" + stopId;
 	}
 	

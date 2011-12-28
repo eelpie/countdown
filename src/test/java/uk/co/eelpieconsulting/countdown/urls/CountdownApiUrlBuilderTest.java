@@ -12,7 +12,7 @@ public class CountdownApiUrlBuilderTest {
 	public void canConstructUrlForStopBoardJSONRequest() {		
 		CountdownApiUrlBuilder urlBuilder = new CountdownApiUrlBuilder(API_HOST);
 		
-		assertEquals("http://countdown.tfl.gov.uk/stopBoard/53550", urlBuilder.getStopBoardUrl("53550"));
+		assertEquals("http://countdown.tfl.gov.uk/stopBoard/53550", urlBuilder.getStopBoardUrl(53550));
 	}
 
 }
