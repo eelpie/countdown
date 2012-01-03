@@ -25,6 +25,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HttpContext;
 
+import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
+
 public class HttpFetcher {
 
 	//private final Logger log = Logger.getLogger(HttpFetcher.class);
@@ -34,7 +36,7 @@ public class HttpFetcher {
 	public HttpFetcher() {
 	}
 	
-	public String fetchContent(String url, String charEncoding) {
+	public String fetchContent(String url, String charEncoding) throws HttpFetchException {
 		InputStream inputStream = httpFetch(url);
 		if (inputStream != null) {
 			try {
@@ -42,8 +44,10 @@ public class HttpFetcher {
 			} catch (UnsupportedEncodingException e) {
 				//log.error(e);
 				e.printStackTrace();
+				throw new HttpFetchException();
 			} catch (IOException e) {
 				//log.error(e);
+				throw new HttpFetchException();
 			}			
 		}
 		return null;

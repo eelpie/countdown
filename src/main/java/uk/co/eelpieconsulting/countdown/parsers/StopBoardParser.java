@@ -8,12 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.Arrival;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
 public class StopBoardParser {
 
-	public StopBoard parse(String json) {
+	public StopBoard parse(String json) throws ParsingException {
 		try {			
 			JSONObject stopBoardJSON = new JSONObject(json);			
 			if (stopBoardJSON.has("arrivals")) {
@@ -30,6 +31,7 @@ public class StopBoardParser {
 			
 		} catch (JSONException e) {	
 			e.printStackTrace();
+			throw new ParsingException();
 		}
 		
 		return null;

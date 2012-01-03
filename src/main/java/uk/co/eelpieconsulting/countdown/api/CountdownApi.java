@@ -1,5 +1,7 @@
 package uk.co.eelpieconsulting.countdown.api;
 
+import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
+import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
@@ -17,7 +19,7 @@ public class CountdownApi {
 		this.stopBoardParser = stopBoardParser;
 	}
 	
-	public StopBoard getStopBoard(int stopId) {
+	public StopBoard getStopBoard(int stopId) throws HttpFetchException, ParsingException {
 		return stopBoardParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopBoardUrl(stopId), "UTF-8"));
 	}
 
