@@ -2,10 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.co.eelpieconsulting.countdown</groupId>
-	<artifactId>countdown-model</artifactId>
+	<artifactId>countdown-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Countdown model</name>
+	<name>Countdown api and model</name>
 	<version>0.0.1</version>
+	<description>An api implementation and domain model for TfLs bus countdown service</description>
 	<build>
 		<plugins>
 			<plugin>
