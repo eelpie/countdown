@@ -29,5 +29,10 @@ public class Place {
 	public double getLng() {
 		return lng;
 	}
+
+	@Override
+	public String toString() {
+		return "Place [lat=" + lat + ", lng=" + lng + ", name=" + name + ", place=" + place + "]";
+	}
 	
 }

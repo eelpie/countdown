@@ -12,8 +12,10 @@ import org.mockito.MockitoAnnotations;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
+import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
+import uk.co.eelpieconsulting.countdown.parsers.PlaceSearchParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
@@ -21,6 +23,7 @@ import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 
 public class CountdownApiTest {
 	
+	private static final String PLACE_SEARCH_TERM = "Somewhere";
 	private static final int STOPBOARD_ID = 123;
 	private static final String STOPBOARD_URL = "http://stopboard/123";
 	private static final String STOPBOARD_JSON = "{some json}";
@@ -30,21 +33,25 @@ public class CountdownApiTest {
 	private static final double NE_LNG = 1;
 	private static final String STOP_SEARCH_URL = "http://stopsearch/bounding/box";
 	private static final String STOP_SEARCH_JSON = "{some json with stops in it}";
+	private static final String PLACE_SEARCH_URL = "http://placesearch/someplacename";
+	private static final String PLACE_SEARCH_JSON = "{some json with place search results in it}";
 	
 	@Mock CountdownApiUrlBuilder countdownApiUrlBuilder;
 	@Mock HttpFetcher httpFetcher;	
 	@Mock StopBoardParser stopBoardParser;
 	@Mock StopSearchParser stopSearchParser;
+	@Mock PlaceSearchParser placeSearchParser;
 	
 	@Mock StopBoard stopBoard;
 	@Mock List<Stop> stops;
+	@Mock PlaceSearchResult placeSearchResult;
 	
 	private CountdownApi api;
 	
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser);
+		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser, placeSearchParser);
 	}
 	
 	@Test
@@ -76,7 +83,7 @@ public class CountdownApiTest {
 	}
 	
 	@Test
-	public void canCanSearchForStopsWithinBoundingBox() throws Exception {
+	public void canSearchForStopsWithinBoundingBox() throws Exception {
 		when(countdownApiUrlBuilder.getMarkerSearchUrl(SW_LAT, SW_LNG, NE_LAT, NE_LNG)).thenReturn(STOP_SEARCH_URL);
 		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
 		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
@@ -84,6 +91,17 @@ public class CountdownApiTest {
 		List<Stop> returnedStops = api.findStopsWithin(SW_LAT, SW_LNG, NE_LAT, NE_LNG);
 		
 		assertEquals(stops, returnedStops);
+	}
+	
+	@Test
+	public void canForTextPlacenames() throws Exception {
+		when(countdownApiUrlBuilder.getPlaceSearchUrl(PLACE_SEARCH_TERM)).thenReturn(PLACE_SEARCH_URL);
+		when(httpFetcher.fetchContent(PLACE_SEARCH_URL, "UTF-8")).thenReturn(PLACE_SEARCH_JSON);
+		when(placeSearchParser.parse(PLACE_SEARCH_JSON)).thenReturn(placeSearchResult);
+		
+		PlaceSearchResult result = api.searchForPlaces(PLACE_SEARCH_TERM);
+		
+		assertEquals(placeSearchResult, result);
 	}
 	
 }

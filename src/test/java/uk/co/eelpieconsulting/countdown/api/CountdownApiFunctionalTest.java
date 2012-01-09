@@ -9,8 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.eelpieconsulting.countdown.model.Arrival;
+import uk.co.eelpieconsulting.countdown.model.Place;
+import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
+import uk.co.eelpieconsulting.countdown.parsers.PlaceSearchParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
@@ -26,8 +29,9 @@ public class CountdownApiFunctionalTest {
 		HttpFetcher httpFetcher = new HttpFetcher();		
 		StopBoardParser stopBoardParser = new StopBoardParser();
 		StopSearchParser stopSearchParser = new StopSearchParser();
+		PlaceSearchParser placeSearchParser = new PlaceSearchParser();
 		
-		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser);
+		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser, placeSearchParser);
 	}
 
 	@Test
@@ -48,6 +52,17 @@ public class CountdownApiFunctionalTest {
 		assertFalse(stops.isEmpty());
 		for (Stop stop : stops) {
 			System.out.println(stop);
+		}
+	}
+	
+	@Test
+	public void placeSearchTest() throws Exception {
+		PlaceSearchResult results = api.searchForPlaces("Twickenham");
+		
+		assertNotNull(results.getBoundingBox());
+		assertFalse(results.getPlaces().isEmpty());
+		for(Place place : results.getPlaces()) {
+			System.out.println(place);
 		}
 	}
 
