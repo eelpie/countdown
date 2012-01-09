@@ -84,7 +84,7 @@ public class CountdownApiFunctionalTest {
 		System.out.println("Loading arrivals for stop: " + firstStop.getId());
 		StopBoard stopBoard = api.getStopBoard(firstStop.getId());
 		Arrival firstArrival = stopBoard.getArrivals().get(0);
-		System.out.println("Next arrival is: " + firstArrival.getRouteName() + " to " + firstArrival.getDestination() + ": " + firstArrival.getEstimatedWait());
+		System.out.println("Next arrival is " + firstArrival.getRouteName() + " to " + firstArrival.getDestination() + ": " + firstArrival.getEstimatedWait());
 		System.out.println("Last updated: " + stopBoard.getLastUpdated());
 	}
 	
