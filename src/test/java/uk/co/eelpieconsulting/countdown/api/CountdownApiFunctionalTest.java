@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.eelpieconsulting.countdown.model.Arrival;
+import uk.co.eelpieconsulting.countdown.model.BoundingBox;
 import uk.co.eelpieconsulting.countdown.model.Place;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
@@ -56,5 +57,34 @@ public class CountdownApiFunctionalTest {
 			System.out.println(place);
 		}
 	}
-
+	
+	// Example usage for README file
+	@Test
+	public void exampleUsage() throws Exception {
+		CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
+		
+		// Search for a place name
+		final String placeName = "Twickenham";
+		System.out.println("Searching for places named: " + placeName);
+		PlaceSearchResult placeSearchResults = api.searchForPlaces(placeName);
+		List<Place> places = placeSearchResults.getPlaces();
+		System.out.println("Found " + places.size() + " results");
+		Place firstPlace = places.get(0);
+		System.out.println("The first one was: " + firstPlace.getName() + "/" + firstPlace.getPlace() + " at " + firstPlace.getLat() + ", " + firstPlace.getLng());
+		
+		// Load a list of stops with in the bounding box for this place name search result.
+		BoundingBox boundingBox = placeSearchResults.getBoundingBox();
+		System.out.println("Searching for stops within bounding box: " + boundingBox);
+		List<Stop> stops = api.findStopsWithin(boundingBox.getSwLat(), boundingBox.getSwLng(), boundingBox.getNeLat(), boundingBox.getNeLng());
+		System.out.println("Found " + stops.size() + " stops");
+		Stop firstStop = stops.get(0);
+		System.out.println("This first one is: " + firstStop.getName() + "(" + firstStop.getId() + ")" + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
+		
+		// Load a list of expected arrivals for a stop
+		StopBoard stopBoard = api.getStopBoard(Integer.parseInt(firstStop.getId()));	// TODO type mismatch
+		Arrival firstArrival = stopBoard.getArrivals().get(0);
+		System.out.println("Next arrival is: " + firstArrival.getRouteName() + " to " + firstArrival.getDestination() + ": " + firstArrival.getEstimatedWait());
+		System.out.println("Last updated: " + stopBoard.getLastUpdated());
+	}
+	
 }
