@@ -50,8 +50,7 @@ public class CountdownApi {
 	}
 	
 	public List<Stop> findStopsWithinApproximateRadiusOf(double latitide, double longitude, double radius) throws HttpFetchException, ParsingException {		
-		BoundingBox boundingBox = createApproximateBoundingBoxFor(latitide, longitude, radius);
-		return findStopsWithin(boundingBox);
+		return findStopsWithin(createApproximateBoundingBoxFor(latitide, longitude, radius));
 	}
 
 	public PlaceSearchResult searchForPlaces(String searchTerm) throws HttpFetchException, ParsingException {
