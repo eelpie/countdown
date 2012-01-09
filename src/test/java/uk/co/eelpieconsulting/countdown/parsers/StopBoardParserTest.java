@@ -12,7 +12,7 @@ public class StopBoardParserTest {
 	private StopBoardParser stopBoardParser;
 
 	@Test
-	public void canParseMarkerSearchResultsIntoListOfStops() throws Exception {
+	public void canParseStopBoardJsonIntoListOfArrivals() throws Exception {
 		stopBoardParser = new StopBoardParser();
 		
 		StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard.json"));
