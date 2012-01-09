@@ -2,14 +2,14 @@ package uk.co.eelpieconsulting.countdown.model;
 
 public class Stop {
 	
-	private String id;
+	private int id;
 	private String name;
 	private double latitude;
 	private double longitude;
 	private String stopIndicator;
 	private String towards;
 	
-	public Stop(String id, String name, double latitude, double longitude) {
+	public Stop(int id, String name, double latitude, double longitude) {
 		this.id = id;
 		this.name = name;
 		this.latitude = latitude;
@@ -24,7 +24,7 @@ public class Stop {
 		this.towards = towards;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 

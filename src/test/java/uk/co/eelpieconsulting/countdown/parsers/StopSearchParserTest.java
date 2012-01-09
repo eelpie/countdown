@@ -21,7 +21,7 @@ public class StopSearchParserTest {
 
 		assertEquals(88, stops.size());
 		Stop first = stops.get(0);
-		assertEquals("51260", first.getId());
+		assertEquals(51260, first.getId());
 		assertEquals("Bandon Hill Cemetery", first.getName());
 		assertEquals(51.36607832812416, first.getLatitude(), 0);
 		assertEquals(-0.13217236388347467, first.getLongitude(), 0);

@@ -42,7 +42,7 @@ public class StopSearchParser {
 	}
 
 	private Stop extractStopFromJson(JSONObject marker) throws JSONException {
-		Stop stop = new Stop(marker.getString(ID), marker.getString(NAME), marker.getDouble(LAT), marker.getDouble(LNG));
+		Stop stop = new Stop(marker.getInt(ID), marker.getString(NAME), marker.getDouble(LAT), marker.getDouble(LNG));
 		if (marker.has(STOP_INDICATOR)) {
 			stop.setStopIndicator(marker.getString(STOP_INDICATOR));
 		}
