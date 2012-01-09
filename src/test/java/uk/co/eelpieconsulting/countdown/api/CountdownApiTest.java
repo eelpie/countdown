@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
+import uk.co.eelpieconsulting.countdown.model.BoundingBox;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
@@ -88,7 +89,7 @@ public class CountdownApiTest {
 		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
 		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
 		
-		List<Stop> returnedStops = api.findStopsWithin(SW_LAT, SW_LNG, NE_LAT, NE_LNG);
+		List<Stop> returnedStops = api.findStopsWithin(new BoundingBox(SW_LAT, SW_LNG, NE_LAT, NE_LNG));
 		
 		assertEquals(stops, returnedStops);
 	}

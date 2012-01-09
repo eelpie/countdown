@@ -4,6 +4,7 @@ import java.util.List;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
+import uk.co.eelpieconsulting.countdown.model.BoundingBox;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
@@ -41,8 +42,8 @@ public class CountdownApi {
 		return stopBoardParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopBoardUrl(stopId), "UTF-8"));
 	}
 
-	public List<Stop> findStopsWithin(double swLat, double swLng, double neLat, double neLng) throws HttpFetchException, ParsingException {
-		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(swLat, swLng, neLat, neLng), "UTF-8"));
+	public List<Stop> findStopsWithin(BoundingBox boundingBox) throws HttpFetchException, ParsingException {
+		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(boundingBox.getSwLat(), boundingBox.getSwLng(), boundingBox.getNeLat(), boundingBox.getNeLng()), "UTF-8"));
 	}
 
 	public PlaceSearchResult searchForPlaces(String searchTerm) throws HttpFetchException, ParsingException {

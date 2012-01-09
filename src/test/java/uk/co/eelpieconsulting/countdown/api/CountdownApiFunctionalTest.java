@@ -38,7 +38,7 @@ public class CountdownApiFunctionalTest {
 	
 	@Test
 	public void stopSearchTest() throws Exception {
-		List<Stop> stops = api.findStopsWithin(51.454, -0.351, 51.481, -0.307);
+		List<Stop> stops = api.findStopsWithin(new BoundingBox(51.454, -0.351, 51.481, -0.307));
 		
 		assertNotNull(stops);
 		assertFalse(stops.isEmpty());
@@ -72,15 +72,16 @@ public class CountdownApiFunctionalTest {
 		Place firstPlace = places.get(0);
 		System.out.println("The first one was: " + firstPlace.getName() + "/" + firstPlace.getPlace() + " at " + firstPlace.getLat() + ", " + firstPlace.getLng());
 		
-		// Load a list of stops with in the bounding box for this place name search result.
-		BoundingBox boundingBox = placeSearchResults.getBoundingBox();
+		// Load a list of stops within a bounding box
+		BoundingBox boundingBox = new BoundingBox(51.454, -0.351, 51.481, -0.307);
 		System.out.println("Searching for stops within bounding box: " + boundingBox);
-		List<Stop> stops = api.findStopsWithin(boundingBox.getSwLat(), boundingBox.getSwLng(), boundingBox.getNeLat(), boundingBox.getNeLng());
+		List<Stop> stops = api.findStopsWithin(boundingBox);
 		System.out.println("Found " + stops.size() + " stops");
 		Stop firstStop = stops.get(0);
-		System.out.println("This first one is: " + firstStop.getName() + "(" + firstStop.getId() + ")" + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
+		System.out.println("This first one is: " + firstStop.getName() + " (" + firstStop.getId() + ") towards " + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
 		
 		// Load a list of expected arrivals for a stop
+		System.out.println("Loading arrivals for stop: " + firstStop.getId());
 		StopBoard stopBoard = api.getStopBoard(firstStop.getId());
 		Arrival firstArrival = stopBoard.getArrivals().get(0);
 		System.out.println("Next arrival is: " + firstArrival.getRouteName() + " to " + firstArrival.getDestination() + ": " + firstArrival.getEstimatedWait());
