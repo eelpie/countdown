@@ -3,6 +3,8 @@ package uk.co.eelpieconsulting.countdown.api;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,8 +12,10 @@ import org.mockito.MockitoAnnotations;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
+import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
+import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
 import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 
@@ -20,19 +24,27 @@ public class CountdownApiTest {
 	private static final int STOPBOARD_ID = 123;
 	private static final String STOPBOARD_URL = "http://stopboard/123";
 	private static final String STOPBOARD_JSON = "{some json}";
-	
-	@Mock StopBoard stopBoard;
+	private static final double SW_LAT = -1;
+	private static final double SW_LNG = -1;
+	private static final double NE_LAT = 1;
+	private static final double NE_LNG = 1;
+	private static final String STOP_SEARCH_URL = "http://stopsearch/bounding/box";
+	private static final String STOP_SEARCH_JSON = "{some json with stops in it}";
 	
 	@Mock CountdownApiUrlBuilder countdownApiUrlBuilder;
 	@Mock HttpFetcher httpFetcher;	
 	@Mock StopBoardParser stopBoardParser;
+	@Mock StopSearchParser stopSearchParser;
+	
+	@Mock StopBoard stopBoard;
+	@Mock List<Stop> stops;
 	
 	private CountdownApi api;
-		
+	
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser);
+		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser);
 	}
 	
 	@Test
@@ -62,5 +74,16 @@ public class CountdownApiTest {
 		
 		api.getStopBoard(STOPBOARD_ID);
 	}
+	
+	@Test
+	public void canCanSearchForStopsWithinBoundingBox() throws Exception {
+		when(countdownApiUrlBuilder.getMarkerSearchUrl(SW_LAT, SW_LNG, NE_LAT, NE_LNG)).thenReturn(STOP_SEARCH_URL);
+		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
+		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
 		
+		List<Stop> returnedStops = api.findStopsWithin(SW_LAT, SW_LNG, NE_LAT, NE_LNG);
+		
+		assertEquals(stops, returnedStops);
+	}
+	
 }

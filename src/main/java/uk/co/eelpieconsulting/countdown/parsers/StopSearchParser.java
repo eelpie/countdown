@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 
 public class StopSearchParser {
@@ -19,7 +20,7 @@ public class StopSearchParser {
 	private static final String STOP_INDICATOR = "stopIndicator";
 	private static final String TOWARDS = "towards";
 	
-	public List<Stop> parse(String stopSearchJSON) {
+	public List<Stop> parse(String stopSearchJSON) throws ParsingException {
 		JSONObject stopSearch;
 		try {
 			stopSearch = new JSONObject(stopSearchJSON);
@@ -34,7 +35,7 @@ public class StopSearchParser {
 			}
 		} catch (JSONException e) {	
 			e.printStackTrace();
-			return null;
+			throw new ParsingException();
 		}
 		
 		return null;
