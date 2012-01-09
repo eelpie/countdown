@@ -15,11 +15,19 @@ import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 
 public class CountdownApi {
 	
-	private CountdownApiUrlBuilder countdownApiUrlBuilder;
-	private HttpFetcher httpFetcher;
-	private StopBoardParser stopBoardParser;
-	private StopSearchParser stopSearchParser;
-	private PlaceSearchParser placeSearchParser;
+	final private CountdownApiUrlBuilder countdownApiUrlBuilder;
+	final private HttpFetcher httpFetcher;
+	final private StopBoardParser stopBoardParser;
+	final private StopSearchParser stopSearchParser;
+	final private PlaceSearchParser placeSearchParser;
+
+	public CountdownApi(String apiUrl) {
+		this.countdownApiUrlBuilder = new CountdownApiUrlBuilder(apiUrl);
+		this.httpFetcher = new HttpFetcher();
+		this.stopBoardParser = new StopBoardParser();
+		this.stopSearchParser = new StopSearchParser();
+		this.placeSearchParser = new PlaceSearchParser();
+	}
 	
 	public CountdownApi(CountdownApiUrlBuilder countdownApiUrlBuilder, HttpFetcher httpFetcher, StopBoardParser stopBoardParser, StopSearchParser stopSearchParser, PlaceSearchParser placeSearchParser) {
 		this.countdownApiUrlBuilder = countdownApiUrlBuilder;

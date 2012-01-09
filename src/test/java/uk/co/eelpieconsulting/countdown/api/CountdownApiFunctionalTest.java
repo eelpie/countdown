@@ -13,25 +13,16 @@ import uk.co.eelpieconsulting.countdown.model.Place;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
-import uk.co.eelpieconsulting.countdown.parsers.PlaceSearchParser;
-import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
-import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
-import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
-import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 
 public class CountdownApiFunctionalTest {
+	
+	private static final String LIVE_API_URL = "http://countdown.tfl.gov.uk";
 	
 	private CountdownApi api;
 
 	@Before
-	public void setup() {
-		CountdownApiUrlBuilder  countdownApiUrlBuilder = new CountdownApiUrlBuilder("http://countdown.tfl.gov.uk");
-		HttpFetcher httpFetcher = new HttpFetcher();		
-		StopBoardParser stopBoardParser = new StopBoardParser();
-		StopSearchParser stopSearchParser = new StopSearchParser();
-		PlaceSearchParser placeSearchParser = new PlaceSearchParser();
-		
-		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser, placeSearchParser);
+	public void setup() {		
+		api = new CountdownApi(LIVE_API_URL);
 	}
 
 	@Test
