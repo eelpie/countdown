@@ -1,0 +1,40 @@
+A Java/Android client and model for TfL's Countdown bus arrival time service.
+
+Example usage:
+
+CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
+		
+// Search for a place name
+final String placeName = "Twickenham";
+System.out.println("Searching for places named: " + placeName);
+PlaceSearchResult placeSearchResults = api.searchForPlaces(placeName);
+List<Place> places = placeSearchResults.getPlaces();
+System.out.println("Found " + places.size() + " results");
+Place firstPlace = places.get(0);
+System.out.println("The first one was: " + firstPlace.getName() + "/" + firstPlace.getPlace() + " at " + firstPlace.getLat() + ", " + firstPlace.getLng());
+		
+// Load a list of stops within a bounding box
+BoundingBox boundingBox = new BoundingBox(51.454, -0.351, 51.481, -0.307);
+System.out.println("Searching for stops within bounding box: " + boundingBox);
+List<Stop> stops = api.findStopsWithin(boundingBox);
+System.out.println("Found " + stops.size() + " stops");
+Stop firstStop = stops.get(0);
+System.out.println("This first one is: " + firstStop.getName() + " (" + firstStop.getId() + ") towards " + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
+		
+// Load a list of expected arrivals for a stop
+System.out.println("Loading arrivals for stop: " + firstStop.getId());
+StopBoard stopBoard = api.getStopBoard(firstStop.getId());
+Arrival firstArrival = stopBoard.getArrivals().get(0);
+System.out.println("Next arrival is " + firstArrival.getRouteName() + " to " + firstArrival.getDestination() + ": " + firstArrival.getEstimatedWait());
+System.out.println("Last updated: " + stopBoard.getLastUpdated());
+
+Output:
+Searching for places named: Twickenham
+Found 13 results
+The first one was: Twickenham/London at 51.44688, -0.33434
+Searching for stops within bounding box: BoundingBox [swLat=51.454, swLng=-0.351, neLat=51.481, neLng=-0.307]
+Found 121 stops
+This first one is: Alton Close (57870) towards Hounslow at 51.47465962135397, -0.3297107544115237
+Loading arrivals for stop: 57870
+Next arrival is H28 to Bull's Bridge: 7 min
+Last updated: 15:20
