@@ -32,8 +32,7 @@ public class BoundingBox {
 
 	@Override
 	public String toString() {
-		return "BoundingBox [neLat=" + neLat + ", nwLng=" + neLng + ", swLat="
-				+ swLat + ", swLng=" + swLng + "]";
+		return "BoundingBox [swLat=" + swLat + ", swLng=" + swLng + ", neLat=" + neLat + ", neLng=" + neLng + "]";
 	}
 	
 }
