@@ -59,7 +59,6 @@ public class CountdownApiFunctionalTest {
 	}
 	
 	// Example usage for README file
-	@Test
 	public void exampleUsage() throws Exception {
 		CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
 		
