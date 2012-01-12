@@ -50,14 +50,14 @@ public class CountdownApi {
 	}
 	
 	public List<Stop> findStopsWithinApproximateRadiusOf(double latitide, double longitude, double radius) throws HttpFetchException, ParsingException {		
-		return findStopsWithin(createApproximateBoundingBoxFor(latitide, longitude, radius));
+		return findStopsWithin(approximateBoundingBoxFor(latitide, longitude, radius));
 	}
 
 	public PlaceSearchResult searchForPlaces(String searchTerm) throws HttpFetchException, ParsingException {
 		return placeSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getPlaceSearchUrl(searchTerm), "UTF-8"));
 	}
 
-	private BoundingBox createApproximateBoundingBoxFor(double latitide, double longitude, double radius) {
+	private BoundingBox approximateBoundingBoxFor(double latitide, double longitude, double radius) {
 		double offset = (radius / CIRCUMFERENCE_OF_THE_EARTH_IN_METERS) * 360;		
 		BoundingBox boundingBox = new BoundingBox(latitide - offset, longitude - offset, latitide + offset, longitude + offset);
 		return boundingBox;
