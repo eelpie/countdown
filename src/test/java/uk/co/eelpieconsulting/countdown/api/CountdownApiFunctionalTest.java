@@ -48,6 +48,17 @@ public class CountdownApiFunctionalTest {
 	}
 	
 	@Test
+	public void stopSearchRadiusTest() throws Exception {
+		List<Stop> stops = api.findStopsWithinApproximateRadiusOf(51.454, -0.351, 100);
+		
+		assertNotNull(stops);
+		assertFalse(stops.isEmpty());
+		for (Stop stop : stops) {
+			System.out.println(stop);
+		}
+	}
+	
+	@Test
 	public void placeSearchTest() throws Exception {
 		PlaceSearchResult results = api.searchForPlaces("Twickenham");
 		
