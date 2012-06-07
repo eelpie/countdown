@@ -23,8 +23,8 @@ public class CountdownApiUrlBuilder {
 		}
 	}
 
-	public String getMarkerSearchUrl(double swLat, double swLng, double neLat, double neLng) {
-		return apiUrl + "/markers/swLat/" + swLat + "/swLng/" + swLng + "/neLat/" + neLat + "/neLng/" + neLng + "/";
+	public String getMarkerSearchUrl(double latitude, double longitude, int radius) {
+		return apiUrl + "/interfaces/ura/instant_V1?Circle=" + latitude + "," + longitude + "," + radius + "&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude";
 	}
 	
 }

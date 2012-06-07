@@ -1,4 +1,5 @@
 package uk.co.eelpieconsulting.countdown.parsers;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -17,16 +18,16 @@ public class StopSearchParserTest {
 	public void canParseMarkerSearchResultsIntoListOfStops() throws Exception {
 		stopSearchParser = new StopSearchParser();
 		
-		List<Stop> stops = stopSearchParser.parse(ContentLoader.loadContent("marker_search.json"));
-
-		assertEquals(88, stops.size());
-		Stop first = stops.get(0);
-		assertEquals(51260, first.getId());
-		assertEquals("Bandon Hill Cemetery", first.getName());
-		assertEquals(51.36607832812416, first.getLatitude(), 0);
-		assertEquals(-0.13217236388347467, first.getLongitude(), 0);
-		assertEquals("A", first.getStopIndicator());
-		assertEquals("CROYDON", first.getTowards());
+		final List<Stop> stops = stopSearchParser.parse(ContentLoader.loadContent("marker_search.json"));
+		
+		assertEquals(5, stops.size());
+		final Stop second = stops.get(1);
+		assertEquals(72682, second.getId());
+		assertEquals("Kneller Hall", second.getName());
+		assertEquals("Fulwell or Isleworth", second.getTowards());
+		assertEquals("A", second.getStopIndicator());
+		assertEquals(51.453813, second.getLatitude(), 0);
+		assertEquals(-0.347995, second.getLongitude(), 0);
 	}
 
 }

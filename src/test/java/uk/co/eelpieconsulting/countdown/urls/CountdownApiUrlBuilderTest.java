@@ -22,12 +22,12 @@ public class CountdownApiUrlBuilderTest {
 	
 	@Test
 	public void canConstructUrlForPlaceSearch() throws Exception {
-		assertEquals("http://countdown.tfl.gov.uk/search?searchTerm=Twickenham", urlBuilder.getPlaceSearchUrl("Twickenham"));
+		assertEquals("http://countdown.api.tfl.gov.uk/search?searchTerm=Twickenham", urlBuilder.getPlaceSearchUrl("Twickenham"));
 	}
 	
 	@Test
 	public void canConstructUrlForMarkerSearch() throws Exception {
-		assertEquals("http://countdown.tfl.gov.uk/markers/swLat/51.454/swLng/-0.351/neLat/51.481/neLng/-0.307/", urlBuilder.getMarkerSearchUrl(51.454, -0.351, 51.481, -0.307));		
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?Circle=51.454,-0.351,250&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerSearchUrl(51.454, -0.351, 250));		
 	}
 
 }

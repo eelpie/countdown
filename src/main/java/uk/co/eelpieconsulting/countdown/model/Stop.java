@@ -4,32 +4,34 @@ public class Stop {
 	
 	private int id;
 	private String name;
+	private String towards;
+	private String stopIndicator;
 	private double latitude;
 	private double longitude;
-	private String stopIndicator;
-	private String towards;
 	
-	public Stop(int id, String name, double latitude, double longitude) {
+	public Stop(int id, String name, String towards, String stopIndicator, double latitude, double longitude) {
 		this.id = id;
 		this.name = name;
+		this.towards = towards;
+		this.stopIndicator = stopIndicator;
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
-	
-	public void setStopIndicator(String stopIndicator) {
-		this.stopIndicator = stopIndicator;
-	}
-	
-	public void setTowards(String towards) {
-		this.towards = towards;
-	}
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getTowards() {
+		return towards;
+	}
+
+	public String getStopIndicator() {
+		return stopIndicator;
 	}
 
 	public double getLatitude() {
@@ -40,17 +42,11 @@ public class Stop {
 		return longitude;
 	}
 
-	public String getStopIndicator() {
-		return stopIndicator;
-	}
-
-	public String getTowards() {
-		return towards;
-	}
-
 	@Override
 	public String toString() {
-		return "Stop [id=" + id + ", name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + ", stopIndicator=" + stopIndicator + ", towards=" + towards + "]";
+		return "Stop [id=" + id + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", name=" + name + ", stopIndicator="
+				+ stopIndicator + ", towards=" + towards + "]";
 	}
 	
 }

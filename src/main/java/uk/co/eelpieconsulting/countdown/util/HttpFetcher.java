@@ -28,9 +28,7 @@ import org.apache.http.protocol.HttpContext;
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 
 public class HttpFetcher {
-
-	//private final Logger log = Logger.getLogger(HttpFetcher.class);
-
+	
 	private static final int HTTP_TIMEOUT = 15000;
 
 	public HttpFetcher() {
@@ -115,14 +113,14 @@ public class HttpFetcher {
 	}
 	
 	private String readResponseBody(String pageCharacterEncoding, InputStream inputStream) throws UnsupportedEncodingException, IOException {
-		StringBuilder output = new StringBuilder();
-
-		InputStreamReader input = new InputStreamReader(inputStream, pageCharacterEncoding);
-		BufferedReader reader = new BufferedReader(input);
+		final StringBuilder output = new StringBuilder();
+		final InputStreamReader input = new InputStreamReader(inputStream, pageCharacterEncoding);
+		final BufferedReader reader = new BufferedReader(input);
 
 		String line = "";
 		while ((line = reader.readLine()) != null) {
-		output.append(line);
+			output.append(line);
+			output.append("\n");
 		}
 		reader.close();
 		return output.toString();

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.eelpieconsulting.countdown.model.Arrival;
-import uk.co.eelpieconsulting.countdown.model.BoundingBox;
 import uk.co.eelpieconsulting.countdown.model.Place;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
@@ -38,18 +37,7 @@ public class CountdownApiFunctionalTest {
 	
 	@Test
 	public void stopSearchTest() throws Exception {
-		List<Stop> stops = api.findStopsWithin(new BoundingBox(51.454, -0.351, 51.481, -0.307));
-		
-		assertNotNull(stops);
-		assertFalse(stops.isEmpty());
-		for (Stop stop : stops) {
-			System.out.println(stop);
-		}
-	}
-	
-	@Test
-	public void stopSearchRadiusTest() throws Exception {
-		List<Stop> stops = api.findStopsWithinApproximateRadiusOf(51.454, -0.351, 100);
+		List<Stop> stops = api.findStopsWithin(51.454, -0.351, 1000);
 		
 		assertNotNull(stops);
 		assertFalse(stops.isEmpty());
@@ -82,10 +70,9 @@ public class CountdownApiFunctionalTest {
 		Place firstPlace = places.get(0);
 		System.out.println("The first one was: " + firstPlace.getName() + "/" + firstPlace.getPlace() + " at " + firstPlace.getLat() + ", " + firstPlace.getLng());
 		
-		// Load a list of stops within a bounding box
-		BoundingBox boundingBox = new BoundingBox(51.454, -0.351, 51.481, -0.307);
-		System.out.println("Searching for stops within bounding box: " + boundingBox);
-		List<Stop> stops = api.findStopsWithin(boundingBox);
+		// Load a list of stops within a circle
+		System.out.println("Searching for stops within circle");
+		List<Stop> stops = api.findStopsWithin(51.454, -0.351, 1000);
 		System.out.println("Found " + stops.size() + " stops");
 		Stop firstStop = stops.get(0);
 		System.out.println("This first one is: " + firstStop.getName() + " (" + firstStop.getId() + ") towards " + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());

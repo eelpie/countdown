@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
-import uk.co.eelpieconsulting.countdown.model.BoundingBox;
 import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
@@ -28,14 +27,13 @@ public class CountdownApiTest {
 	private static final int STOPBOARD_ID = 123;
 	private static final String STOPBOARD_URL = "http://stopboard/123";
 	private static final String STOPBOARD_JSON = "{some json}";
-	private static final double SW_LAT = -1;
-	private static final double SW_LNG = -1;
-	private static final double NE_LAT = 1;
-	private static final double NE_LNG = 1;
 	private static final String STOP_SEARCH_URL = "http://stopsearch/bounding/box";
 	private static final String STOP_SEARCH_JSON = "{some json with stops in it}";
 	private static final String PLACE_SEARCH_URL = "http://placesearch/someplacename";
 	private static final String PLACE_SEARCH_JSON = "{some json with place search results in it}";
+	private static final double LAT = 1;
+	private static final double LNG = -1;
+	private static final int RADIUS = 250;
 	
 	@Mock CountdownApiUrlBuilder countdownApiUrlBuilder;
 	@Mock HttpFetcher httpFetcher;	
@@ -85,11 +83,11 @@ public class CountdownApiTest {
 	
 	@Test
 	public void canSearchForStopsWithinBoundingBox() throws Exception {
-		when(countdownApiUrlBuilder.getMarkerSearchUrl(SW_LAT, SW_LNG, NE_LAT, NE_LNG)).thenReturn(STOP_SEARCH_URL);
+		when(countdownApiUrlBuilder.getMarkerSearchUrl(LAT, LNG, RADIUS)).thenReturn(STOP_SEARCH_URL);
 		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
 		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
 		
-		List<Stop> returnedStops = api.findStopsWithin(new BoundingBox(SW_LAT, SW_LNG, NE_LAT, NE_LNG));
+		List<Stop> returnedStops = api.findStopsWithin(LAT, LNG, RADIUS);
 		
 		assertEquals(stops, returnedStops);
 	}

@@ -1,55 +1,40 @@
 package uk.co.eelpieconsulting.countdown.parsers;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 
 public class StopSearchParser {
 
-	private static final String MARKERS = "markers";
-	private static final String ID = "id";
-	private static final String NAME = "name";
-	private static final String LNG = "lng";
-	private static final String LAT = "lat";
-	private static final String STOP_INDICATOR = "stopIndicator";
-	private static final String TOWARDS = "towards";
+	private static final String NEW_LINE = "\n";
 	
-	public List<Stop> parse(String stopSearchJSON) throws ParsingException {
-		JSONObject stopSearch;
+	public List<Stop> parse(String json) throws ParsingException {
 		try {
-			stopSearch = new JSONObject(stopSearchJSON);
-			if (stopSearch.has(MARKERS)) {				
-				List<Stop> stops = new ArrayList<Stop>();				
-				JSONArray markers = stopSearch.getJSONArray(MARKERS);
-				for (int i = 0; i < markers.length(); i++) {
-					stops.add(extractStopFromJson(markers.getJSONObject(i)));
-				}				
-				return stops;
-				
+			final String[] lines = json.split(NEW_LINE);	// The input looks non-standard; parse each line one by one	
+			if (lines.length < 1) {
+				throw new ParsingException();
 			}
+			
+			final List<Stop> stops = new ArrayList<Stop>();
+			for (int i = 1; i < lines.length; i++) {
+				final JSONArray stopJson =  new JSONArray(lines[i]);
+				if (!stopJson.isNull(2)) {
+					stops.add(new Stop(Integer.parseInt(stopJson.getString(2)),
+							stopJson.getString(1), stopJson.getString(3),
+							stopJson.getString(4), stopJson.getDouble(5),
+							stopJson.getDouble(6)));
+				}
+			}
+			return stops;
+			
 		} catch (JSONException e) {	
-			e.printStackTrace();
 			throw new ParsingException();
 		}
-		
-		return null;
-	}
-
-	private Stop extractStopFromJson(JSONObject marker) throws JSONException {
-		Stop stop = new Stop(marker.getInt(ID), marker.getString(NAME), marker.getDouble(LAT), marker.getDouble(LNG));
-		if (marker.has(STOP_INDICATOR)) {
-			stop.setStopIndicator(marker.getString(STOP_INDICATOR));
-		}
-		if (marker.has(TOWARDS)) {
-			stop.setTowards(marker.getString(TOWARDS));
-		}
-		return stop;
 	}
 
 }
