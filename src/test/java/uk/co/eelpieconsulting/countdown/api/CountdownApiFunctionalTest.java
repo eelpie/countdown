@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.eelpieconsulting.countdown.model.Arrival;
-import uk.co.eelpieconsulting.countdown.model.Place;
-import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
@@ -46,29 +44,9 @@ public class CountdownApiFunctionalTest {
 		}
 	}
 	
-	@Test
-	public void placeSearchTest() throws Exception {
-		PlaceSearchResult results = api.searchForPlaces("Twickenham");
-		
-		assertNotNull(results.getBoundingBox());
-		assertFalse(results.getPlaces().isEmpty());
-		for(Place place : results.getPlaces()) {
-			System.out.println(place);
-		}
-	}
-	
 	// Example usage for README file
 	public void exampleUsage() throws Exception {
-		CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
-		
-		// Search for a place name
-		final String placeName = "Twickenham";
-		System.out.println("Searching for places named: " + placeName);
-		PlaceSearchResult placeSearchResults = api.searchForPlaces(placeName);
-		List<Place> places = placeSearchResults.getPlaces();
-		System.out.println("Found " + places.size() + " results");
-		Place firstPlace = places.get(0);
-		System.out.println("The first one was: " + firstPlace.getName() + "/" + firstPlace.getPlace() + " at " + firstPlace.getLat() + ", " + firstPlace.getLng());
+		final CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
 		
 		// Load a list of stops within a circle
 		System.out.println("Searching for stops within circle");

@@ -4,10 +4,8 @@ import java.util.List;
 
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
-import uk.co.eelpieconsulting.countdown.model.PlaceSearchResult;
 import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
-import uk.co.eelpieconsulting.countdown.parsers.PlaceSearchParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
@@ -19,22 +17,19 @@ public class CountdownApi {
 	final private HttpFetcher httpFetcher;
 	final private StopBoardParser stopBoardParser;
 	final private StopSearchParser stopSearchParser;
-	final private PlaceSearchParser placeSearchParser;
 
 	public CountdownApi(String apiUrl) {
 		this.countdownApiUrlBuilder = new CountdownApiUrlBuilder(apiUrl);
 		this.httpFetcher = new HttpFetcher();
 		this.stopBoardParser = new StopBoardParser();
 		this.stopSearchParser = new StopSearchParser();
-		this.placeSearchParser = new PlaceSearchParser();
 	}
 	
-	public CountdownApi(CountdownApiUrlBuilder countdownApiUrlBuilder, HttpFetcher httpFetcher, StopBoardParser stopBoardParser, StopSearchParser stopSearchParser, PlaceSearchParser placeSearchParser) {
+	public CountdownApi(CountdownApiUrlBuilder countdownApiUrlBuilder, HttpFetcher httpFetcher, StopBoardParser stopBoardParser, StopSearchParser stopSearchParser) {
 		this.countdownApiUrlBuilder = countdownApiUrlBuilder;
 		this.httpFetcher = httpFetcher;
 		this.stopBoardParser = stopBoardParser;
 		this.stopSearchParser = stopSearchParser;
-		this.placeSearchParser = placeSearchParser;
 	}
 	
 	public StopBoard getStopBoard(int stopId) throws HttpFetchException, ParsingException {
@@ -43,10 +38,6 @@ public class CountdownApi {
 
 	public List<Stop> findStopsWithin(double latitude, double longitude, int radius) throws HttpFetchException, ParsingException {
 		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(latitude, longitude, radius), "UTF-8"));
-	}
-	
-	public PlaceSearchResult searchForPlaces(String searchTerm) throws HttpFetchException, ParsingException {
-		return placeSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getPlaceSearchUrl(searchTerm), "UTF-8"));
 	}
 	
 }
