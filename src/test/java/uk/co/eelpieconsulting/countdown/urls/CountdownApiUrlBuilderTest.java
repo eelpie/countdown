@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class CountdownApiUrlBuilderTest {
 
-	private static final String API_HOST = "http://countdown.tfl.gov.uk";
+	private static final String API_HOST = "http://countdown.api.tfl.gov.uk";
 	private CountdownApiUrlBuilder urlBuilder;
 	
 	@Before
@@ -17,7 +17,7 @@ public class CountdownApiUrlBuilderTest {
 	
 	@Test
 	public void canConstructUrlForStopBoardJSONRequest() {				
-		assertEquals("http://countdown.tfl.gov.uk/stopBoard/53550", urlBuilder.getStopBoardUrl(53550));
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550&ReturnList=LineName,DestinationText,EstimatedTime", urlBuilder.getStopBoardUrl(53550));
 	}
 	
 	@Test

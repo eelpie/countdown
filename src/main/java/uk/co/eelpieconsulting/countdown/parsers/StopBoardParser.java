@@ -3,10 +3,8 @@ package uk.co.eelpieconsulting.countdown.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.Arrival;
@@ -14,27 +12,28 @@ import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
 public class StopBoardParser {
 
-	public StopBoard parse(String json) throws ParsingException {
+	private static final String NEW_LINE = "\n";
+	
+	public StopBoard parse(final String json) throws ParsingException {
 		try {			
-			JSONObject stopBoardJSON = new JSONObject(json);			
-			if (stopBoardJSON.has("arrivals")) {
-				List<Arrival> arrivals = new ArrayList<Arrival>();
-				
-				JSONArray jsonArrivals = stopBoardJSON.getJSONArray("arrivals");
-				for (int i = 0; i < jsonArrivals.length(); i++) {
-					JSONObject arrival = jsonArrivals.getJSONObject(i);					
-					arrivals.add(new Arrival(arrival.getString("routeName"), arrival.getString("estimatedWait"), arrival.getString("destination")));
-				}
-				StopBoard stopBoard = new StopBoard(stopBoardJSON.getString("lastUpdated"), arrivals);
-				return stopBoard;
-			}			
+			final String[] lines = json.split(NEW_LINE);	// The input looks non-standard; parse each line one by one			
+			if (lines.length < 1) {
+				throw new ParsingException();
+			}
+			
+			final JSONArray headerJson = new JSONArray(lines[0]);						
+			final long timestamp = headerJson.getLong(2);
+			
+			final List<Arrival> arrivals = new ArrayList<Arrival>();
+			for (int i = 1; i < lines.length; i++) {
+				final JSONArray arrivalJson =  new JSONArray(lines[i]);				
+				arrivals.add(new Arrival(arrivalJson.getString(1), arrivalJson.getString(2), arrivalJson.getString(3)));			
+			}
+			return new StopBoard(Long.toString(timestamp), arrivals);
 			
 		} catch (JSONException e) {	
-			e.printStackTrace();
 			throw new ParsingException();
 		}
-		
-		return null;
 	}
 
 }

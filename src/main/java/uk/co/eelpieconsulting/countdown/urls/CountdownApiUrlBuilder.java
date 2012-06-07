@@ -12,7 +12,7 @@ public class CountdownApiUrlBuilder {
 	}
 	
 	public String getStopBoardUrl(int stopId) {
-		return apiUrl + "/stopBoard/" + stopId;
+		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + stopId + "&ReturnList=LineName,DestinationText,EstimatedTime";
 	}
 
 	public String getPlaceSearchUrl(String searchTerm) {

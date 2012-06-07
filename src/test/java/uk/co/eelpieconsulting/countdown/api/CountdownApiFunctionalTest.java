@@ -17,7 +17,7 @@ import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
 public class CountdownApiFunctionalTest {
 	
-	private static final String LIVE_API_URL = "http://countdown.tfl.gov.uk";
+	private static final String LIVE_API_URL = "http://countdown.api.tfl.gov.uk";
 	
 	private CountdownApi api;
 

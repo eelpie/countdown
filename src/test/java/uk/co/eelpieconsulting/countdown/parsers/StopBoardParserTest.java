@@ -16,13 +16,13 @@ public class StopBoardParserTest {
 		stopBoardParser = new StopBoardParser();
 		
 		StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard.json"));
-	
-		assertEquals("09:12", stopBoard.getLastUpdated());
-		assertEquals(19, stopBoard.getArrivals().size());		
+
+		assertEquals("1339071391287", stopBoard.getLastUpdated());
+		assertEquals(15, stopBoard.getArrivals().size());		
 		Arrival firstArrival = stopBoard.getArrivals().get(0);
-		assertEquals("267", firstArrival.getRouteName());
-		assertEquals("Fulwell", firstArrival.getDestination());
-		assertEquals("due", firstArrival.getEstimatedWait());
+		assertEquals("R70", firstArrival.getRouteName());
+		assertEquals("Richmond", firstArrival.getDestination());
+		assertEquals("1339071678000", firstArrival.getEstimatedWait());
 	}
 	
 }
