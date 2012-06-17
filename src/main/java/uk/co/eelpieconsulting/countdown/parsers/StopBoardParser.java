@@ -26,10 +26,11 @@ public class StopBoardParser {
 			
 			final List<Arrival> arrivals = new ArrayList<Arrival>();
 			for (int i = 1; i < lines.length; i++) {
-				final JSONArray arrivalJson =  new JSONArray(lines[i]);				
-				arrivals.add(new Arrival(arrivalJson.getString(1), arrivalJson.getString(2), arrivalJson.getString(3)));			
+				final JSONArray arrivalJson =  new JSONArray(lines[i]);
+				long estimatedWait = (Long.parseLong(arrivalJson.getString(3)) - timestamp) / 1000;
+				arrivals.add(new Arrival(arrivalJson.getString(1), arrivalJson.getString(2), estimatedWait));			
 			}
-			return new StopBoard(Long.toString(timestamp), arrivals);
+			return new StopBoard(timestamp, arrivals);
 			
 		} catch (JSONException e) {	
 			throw new ParsingException();

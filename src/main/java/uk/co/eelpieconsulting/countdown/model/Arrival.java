@@ -4,9 +4,9 @@ public class Arrival {
 	
 	private String routeName;
 	private String destination;
-	private String estimatedWait;
+	private long estimatedWait;
 	
-	public Arrival(String routeName, String destination, String estimatedWait) {
+	public Arrival(String routeName, String destination, long estimatedWait) {
 		this.routeName = routeName;
 		this.estimatedWait = estimatedWait;
 		this.destination = destination;
@@ -20,7 +20,7 @@ public class Arrival {
 		return destination;
 	}
 	
-	public String getEstimatedWait() {
+	public long getEstimatedWait() {
 		return estimatedWait;
 	}
 

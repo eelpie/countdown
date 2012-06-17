@@ -15,14 +15,14 @@ public class StopBoardParserTest {
 	public void canParseStopBoardJsonIntoListOfArrivals() throws Exception {
 		stopBoardParser = new StopBoardParser();
 		
-		StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard.json"));
+		final StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard.json"));
 
-		assertEquals("1339071391287", stopBoard.getLastUpdated());
+		assertEquals(1339071391287L, stopBoard.getLastUpdated());
 		assertEquals(15, stopBoard.getArrivals().size());		
 		Arrival firstArrival = stopBoard.getArrivals().get(0);
 		assertEquals("R70", firstArrival.getRouteName());
 		assertEquals("Richmond", firstArrival.getDestination());
-		assertEquals("1339071678000", firstArrival.getEstimatedWait());
+		assertEquals(286, firstArrival.getEstimatedWait());
 	}
 	
 }

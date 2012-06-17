@@ -5,15 +5,15 @@ import java.util.List;
 
 public class StopBoard {
 
-	private String lastUpdated;
-	private List<Arrival> arrivals;
+	private final long lastUpdated;
+	private final List<Arrival> arrivals;
 	
-	public StopBoard(String lastUpdated, List<Arrival> arrivals) {
+	public StopBoard(long lastUpdated, List<Arrival> arrivals) {
 		this.lastUpdated = lastUpdated;
 		this.arrivals = arrivals;
 	}
 	
-	public String getLastUpdated() {
+	public long getLastUpdated() {
 		return lastUpdated;
 	}
 	
