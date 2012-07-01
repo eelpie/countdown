@@ -51,7 +51,7 @@ public class HttpFetcher {
 		return null;
 	}
 	
-	private InputStream httpFetch(String uri) {
+	private InputStream httpFetch(String uri) throws HttpFetchException {
 		try {
 			//log.info("Making http fetch of: " + uri);
 			HttpGet get = new HttpGet(uri);
@@ -66,12 +66,11 @@ public class HttpFetcher {
 			}
 
 			//log.warn("Fetch of '" + uri + "' failed: " + statusCode);
-			return null;
+			throw new HttpFetchException();	// TODO be more specific. ie HTTP/1.1 416 Requested Range Not Satisfiable
 
 		} catch (Exception e) {
-			//log.error("Http exception: " + e.getMessage());
-		}
-		return null;
+			throw new HttpFetchException();
+		}		
 	}
 	
 	private HttpResponse executeRequest(HttpRequestBase request) throws IOException, ClientProtocolException {
