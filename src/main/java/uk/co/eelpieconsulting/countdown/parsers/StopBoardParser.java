@@ -1,6 +1,7 @@
 package uk.co.eelpieconsulting.countdown.parsers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -29,7 +30,8 @@ public class StopBoardParser {
 				final JSONArray arrivalJson =  new JSONArray(lines[i]);
 				long estimatedWait = (Long.parseLong(arrivalJson.getString(3)) - timestamp) / 1000;
 				arrivals.add(new Arrival(arrivalJson.getString(1), arrivalJson.getString(2), estimatedWait));			
-			}
+			}			
+			Collections.sort(arrivals);			
 			return new StopBoard(timestamp, arrivals);
 			
 		} catch (JSONException e) {	

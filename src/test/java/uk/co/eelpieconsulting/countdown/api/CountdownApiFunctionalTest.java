@@ -45,8 +45,9 @@ public class CountdownApiFunctionalTest {
 	}
 	
 	// Example usage for README file
+	@Test
 	public void exampleUsage() throws Exception {
-		final CountdownApi api = new CountdownApi("http://countdown.tfl.gov.uk");
+		final CountdownApi api = new CountdownApi("http://countdown.api.tfl.gov.uk");
 		
 		// Load a list of stops within a circle
 		System.out.println("Searching for stops within circle");

@@ -1,6 +1,6 @@
 package uk.co.eelpieconsulting.countdown.model;
 
-public class Arrival {
+public class Arrival implements Comparable<Arrival> {
 	
 	private String routeName;
 	private String destination;
@@ -27,6 +27,12 @@ public class Arrival {
 	@Override
 	public String toString() {
 		return "Arrival [destination=" + destination + ", estimatedWait=" + estimatedWait + ", routeName=" + routeName + "]";
+	}
+
+	@Override
+	public int compareTo(Arrival o) {
+		long diff = estimatedWait - o.getEstimatedWait();
+		return diff < 0 ? -1 : 1;
 	}
 	
 }
