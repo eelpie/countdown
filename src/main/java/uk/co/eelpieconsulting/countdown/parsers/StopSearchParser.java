@@ -26,7 +26,7 @@ public class StopSearchParser {
 				if (!stopJson.isNull(2)) {
 					stops.add(new Stop(Integer.parseInt(stopJson.getString(2)),
 							stopJson.getString(1), stopJson.getString(3),
-							stopJson.getString(4), stopJson.getDouble(5),
+							stopJson.isNull(4) ? null : stopJson.getString(4), stopJson.getDouble(5),
 							stopJson.getDouble(6)));
 				}
 			}
