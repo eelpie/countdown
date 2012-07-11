@@ -1,5 +1,6 @@
 package uk.co.eelpieconsulting.countdown.api;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
@@ -42,6 +43,15 @@ public class CountdownApiFunctionalTest {
 		for (Stop stop : stops) {
 			System.out.println(stop);
 		}
+	}
+	
+	@Test
+	public void canLocateStopByPublicIdentifier() throws Exception {
+		final List<Stop> matches = api.findStopByPublicIdentifier("15566");
+		
+		assertEquals(1, matches.size());
+		assertEquals(55688, matches.get(0).getId());
+		assertEquals("Tayben Avenue", matches.get(0).getName());
 	}
 	
 	// Example usage for README file
