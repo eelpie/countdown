@@ -22,7 +22,7 @@ public class CountdownApiUrlBuilderTest {
 	
 	@Test
 	public void canConstructUrlForMarkerSearch() throws Exception {
-		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?Circle=51.454,-0.351,250&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerSearchUrl(51.454, -0.351, 250));		
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?Circle=51.454,-0.351,250&ReturnList=StopID,StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerSearchUrl(51.454, -0.351, 250));		
 	}
 
 }

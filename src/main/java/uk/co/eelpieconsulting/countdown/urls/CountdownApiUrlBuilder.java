@@ -14,7 +14,7 @@ public class CountdownApiUrlBuilder {
 	}
 	
 	public String getMarkerSearchUrl(double latitude, double longitude, int radius) {
-		return apiUrl + "/interfaces/ura/instant_V1?Circle=" + latitude + "," + longitude + "," + radius + "&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude";
+		return apiUrl + "/interfaces/ura/instant_V1?Circle=" + latitude + "," + longitude + "," + radius + "&ReturnList=StopID,StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude";
 	}
 	
 }

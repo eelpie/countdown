@@ -4,19 +4,21 @@ import java.io.Serializable;
 
 public class Stop implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	private int id;
 	private String name;
 	private String towards;
+	private String publicIdentifier;
 	private String stopIndicator;
 	private double latitude;
 	private double longitude;
 	
-	public Stop(int id, String name, String towards, String stopIndicator, double latitude, double longitude) {
+	public Stop(int id, String name, String towards, String publicIdentifier, String stopIndicator, double latitude, double longitude) {
 		this.id = id;
 		this.name = name;
 		this.towards = towards;
+		this.publicIdentifier = publicIdentifier;
 		this.stopIndicator = stopIndicator;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -33,7 +35,11 @@ public class Stop implements Serializable {
 	public String getTowards() {
 		return towards;
 	}
-
+	
+	public String getPublicIdentifier() {
+		return publicIdentifier;
+	}
+	
 	public String getStopIndicator() {
 		return stopIndicator;
 	}
@@ -71,8 +77,9 @@ public class Stop implements Serializable {
 	@Override
 	public String toString() {
 		return "Stop [id=" + id + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", name=" + name + ", stopIndicator="
-				+ stopIndicator + ", towards=" + towards + "]";
+				+ longitude + ", name=" + name + ", publicIdentifier="
+				+ publicIdentifier + ", stopIndicator=" + stopIndicator
+				+ ", towards=" + towards + "]";
 	}
 	
 }

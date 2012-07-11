@@ -23,21 +23,22 @@ public class StopSearchParserTest {
 	public void canParseMarkerSearchResultsIntoListOfStops() throws Exception {
 		final List<Stop> stops = stopSearchParser.parse(ContentLoader.loadContent("marker_search.json"));
 		
-		assertEquals(5, stops.size());
-		final Stop second = stops.get(1);
-		assertEquals(72682, second.getId());
-		assertEquals("Kneller Hall", second.getName());
+		assertEquals(39, stops.size());
+		final Stop second = stops.get(0);
+		assertEquals(55688, second.getId());
+		assertEquals("15566", second.getPublicIdentifier());
+		assertEquals("Tayben Avenue", second.getName());
 		assertEquals("Fulwell or Isleworth", second.getTowards());
-		assertEquals("A", second.getStopIndicator());
-		assertEquals(51.453813, second.getLatitude(), 0);
-		assertEquals(-0.347995, second.getLongitude(), 0);
+		assertEquals("B", second.getStopIndicator());
+		assertEquals(51.454234, second.getLatitude(), 0);
+		assertEquals(-0.342136, second.getLongitude(), 0);
 	}
 	
 	@Test
 	public void noStopIndidicatorShouldBeIndicatedByNull() throws Exception {
 		final List<Stop> stops = stopSearchParser.parse(ContentLoader.loadContent("marker_search.json"));
 		
-		final Stop knellerRoad = stops.get(0);
+		final Stop knellerRoad = stops.get(4);
 		assertNull(knellerRoad.getStopIndicator());		
 	}
 

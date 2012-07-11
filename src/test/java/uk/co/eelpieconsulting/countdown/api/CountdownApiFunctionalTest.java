@@ -54,7 +54,7 @@ public class CountdownApiFunctionalTest {
 		List<Stop> stops = api.findStopsWithin(51.454, -0.351, 1000);
 		System.out.println("Found " + stops.size() + " stops");
 		Stop firstStop = stops.get(0);
-		System.out.println("This first one is: " + firstStop.getName() + " (" + firstStop.getId() + ") towards " + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
+		System.out.println("This first one is: " + firstStop.getName() + " (" + firstStop.getPublicIdentifier() + ") towards " + firstStop.getTowards() + " at " + firstStop.getLatitude() + ", " + firstStop.getLongitude());
 		
 		// Load a list of expected arrivals for a stop
 		System.out.println("Loading arrivals for stop: " + firstStop.getId());
