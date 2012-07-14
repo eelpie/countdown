@@ -22,10 +22,15 @@ public class CountdownApiUrlBuilder {
 		return apiUrl + "/interfaces/ura/instant_V1?Circle=" + latitude + "," + longitude + "," + radius + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;
 	}
 
-	public String getMarkerSearchUrl(String publicIdentifier) {
+	@Deprecated
+	public String getMarkerPublicIdentifierSearchUrl(String publicIdentifier) {
 		return apiUrl + "/interfaces/ura/instant_V1?StopID=" + urlEncode(publicIdentifier) + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;						
 	}
 
+	public String getStopIdSearchUrl(int id) {
+		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + id + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;						
+	}
+	
 	private String urlEncode(String value) {
 		try {
 			return URLEncoder.encode(value, "UTF-8");
@@ -33,5 +38,5 @@ public class CountdownApiUrlBuilder {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 }

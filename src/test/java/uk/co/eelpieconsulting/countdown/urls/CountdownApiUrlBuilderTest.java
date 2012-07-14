@@ -27,7 +27,12 @@ public class CountdownApiUrlBuilderTest {
 	
 	@Test
 	public void canConstructUrlForStopPublicIdentifierSearch() throws Exception {
-		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopID=12345&ReturnList=StopID,StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerSearchUrl("12345"));
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopID=12345&ReturnList=StopID,StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerPublicIdentifierSearchUrl("12345"));
+	}
+	
+	@Test
+	public void canConstructUrlForStopIdSearch() throws Exception {
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550&ReturnList=StopID,StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getStopIdSearchUrl(53550));
 	}
 
 }

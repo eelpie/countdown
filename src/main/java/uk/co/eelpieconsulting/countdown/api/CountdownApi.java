@@ -40,8 +40,12 @@ public class CountdownApi {
 		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(latitude, longitude, radius), "UTF-8"));
 	}
 
+	public List<Stop> findStopById(int id) throws HttpFetchException, ParsingException {
+		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopIdSearchUrl(id), "UTF-8"));
+	}
+	
 	public List<Stop> findStopByPublicIdentifier(String publicIdentifier) throws HttpFetchException, ParsingException {
-		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(publicIdentifier), "UTF-8"));
+		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerPublicIdentifierSearchUrl(publicIdentifier), "UTF-8"));
 	}
 	
 }
