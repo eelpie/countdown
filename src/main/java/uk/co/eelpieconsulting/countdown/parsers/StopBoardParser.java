@@ -13,6 +13,10 @@ import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
 public class StopBoardParser {
 
+	private static final int ROUTE = 1;
+	private static final int DIRECTION = 0;
+	private static final int DESTINATION = 2;
+	
 	private static final String NEW_LINE = "\n";
 	
 	public StopBoard parse(final String json) throws ParsingException {
@@ -29,7 +33,7 @@ public class StopBoardParser {
 			for (int i = 1; i < lines.length; i++) {
 				final JSONArray arrivalJson =  new JSONArray(lines[i]);
 				long estimatedWait = (Long.parseLong(arrivalJson.getString(3)) - timestamp) / 1000;
-				arrivals.add(new Arrival(arrivalJson.getString(1), arrivalJson.getString(2), estimatedWait));			
+				arrivals.add(new Arrival(arrivalJson.getString(ROUTE), arrivalJson.getInt(DIRECTION), arrivalJson.getString(DESTINATION), estimatedWait));			
 			}			
 			Collections.sort(arrivals);			
 			return new StopBoard(timestamp, arrivals);

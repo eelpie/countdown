@@ -26,6 +26,7 @@ public class StopBoardParserTest {
 		assertEquals(15, stopBoard.getArrivals().size());		
 		Arrival firstArrival = stopBoard.getArrivals().get(0);
 		assertEquals("33", firstArrival.getRouteName());
+		assertEquals(1, firstArrival.getDirection());
 		assertEquals("Hammersmith", firstArrival.getDestination());
 		assertEquals(47, firstArrival.getEstimatedWait());
 	}
