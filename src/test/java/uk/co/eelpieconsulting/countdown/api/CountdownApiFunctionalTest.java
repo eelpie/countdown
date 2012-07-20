@@ -54,15 +54,6 @@ public class CountdownApiFunctionalTest {
 		assertEquals("York Street / Twickenham", matches.get(0).getName());
 	}
 	
-	@Test
-	public void canLocateStopByPublicIdentifier() throws Exception {
-		final List<Stop> matches = api.findStopByPublicIdentifier("15566");
-		
-		assertEquals(1, matches.size());
-		assertEquals(55688, matches.get(0).getId());
-		assertEquals("Tayben Avenue", matches.get(0).getName());
-	}
-	
 	// Example usage for README file
 	@Test
 	public void exampleUsage() throws Exception {

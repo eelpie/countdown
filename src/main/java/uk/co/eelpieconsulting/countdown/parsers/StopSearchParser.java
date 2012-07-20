@@ -11,13 +11,12 @@ import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 
 public class StopSearchParser {
 
-	private static final int LONGITUDE = 7;
-	private static final int LATITUDE = 6;
-	private static final int STOP_INDICATOR = 5;
-	private static final int PUBLIC_IDENTIFIER = 2;	// TODO remove from results.
-	private static final int TOWARDS = 4;
 	private static final int STOP_NAME = 1;
-	private static final int STOP_ID = 3;
+	private static final int STOP_ID = 2;
+	private static final int TOWARDS = 3;
+	private static final int STOP_INDICATOR = 4;
+	private static final int LATITUDE = 5;
+	private static final int LONGITUDE = 6;
 	
 	private static final String NEW_LINE = "\n";
 	
