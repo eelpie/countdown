@@ -2,9 +2,9 @@ package uk.co.eelpieconsulting.countdown.api;
 
 import java.util.List;
 
+import uk.co.eelpieconsulting.busroutes.model.Stop;
 import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
-import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;

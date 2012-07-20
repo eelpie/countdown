@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.co.eelpieconsulting.countdown.model.Stop;
+import uk.co.eelpieconsulting.busroutes.model.Stop;
 
 public class StopSearchParserTest {
 
@@ -26,10 +26,9 @@ public class StopSearchParserTest {
 		assertEquals(39, stops.size());
 		final Stop second = stops.get(0);
 		assertEquals(55688, second.getId());
-		assertEquals("15566", second.getPublicIdentifier());
 		assertEquals("Tayben Avenue", second.getName());
 		assertEquals("Fulwell or Isleworth", second.getTowards());
-		assertEquals("B", second.getStopIndicator());
+		assertEquals("B", second.getIndicator());
 		assertEquals(51.454234, second.getLatitude(), 0);
 		assertEquals(-0.342136, second.getLongitude(), 0);
 	}
@@ -39,7 +38,7 @@ public class StopSearchParserTest {
 		final List<Stop> stops = stopSearchParser.parse(ContentLoader.loadContent("marker_search.json"));
 		
 		final Stop knellerRoad = stops.get(4);
-		assertNull(knellerRoad.getStopIndicator());		
+		assertNull(knellerRoad.getIndicator());		
 	}
 
 }

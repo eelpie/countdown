@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.co.eelpieconsulting.busroutes.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.Arrival;
-import uk.co.eelpieconsulting.countdown.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 
 public class CountdownApiFunctionalTest {
