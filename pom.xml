@@ -4,9 +4,9 @@
 	<groupId>uk.co.eelpieconsulting.countdown</groupId>
 	<artifactId>countdown-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Countdown api and model</name>
-	<version>1.1.11</version>
-	<description>An client implementation and domain model for TfL's live bus arrival times service</description>
+	<name>Countdown API</name>
+	<version>1.1.12</version>
+	<description>An client implementation for TfL's live bus arrival times API</description>
 	<build>
 		<plugins>
 			<plugin>

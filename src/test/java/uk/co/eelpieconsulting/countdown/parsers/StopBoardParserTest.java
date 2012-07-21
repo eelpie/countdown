@@ -20,14 +20,19 @@ public class StopBoardParserTest {
 	@Test
 	public void canParseStopBoardJsonIntoListOfArrivals() throws Exception {
 		final StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard.json"));
-
-		assertEquals(1339071391287L, stopBoard.getLastUpdated());
-		assertEquals(15, stopBoard.getArrivals().size());		
-		Arrival firstArrival = stopBoard.getArrivals().get(0);
-		assertEquals("33", firstArrival.getRoute().getRoute());
+		
+		assertEquals(1342904780865L, stopBoard.getLastUpdated());
+		assertEquals(10, stopBoard.getArrivals().size());
+		
+		final Arrival firstArrival = stopBoard.getArrivals().get(0);
+		assertEquals("H22", firstArrival.getRoute().getRoute());
 		assertEquals(1, firstArrival.getRoute().getRun());
-		assertEquals("Hammersmith", firstArrival.getRoute().getTowards());
-		assertEquals(47, firstArrival.getEstimatedWait());
+		assertEquals("Richmond", firstArrival.getRoute().getTowards());
+		assertEquals(161, firstArrival.getEstimatedWait());
+		
+		final Arrival otherDirectionArrival = stopBoard.getArrivals().get(3);
+		assertEquals("490", otherDirectionArrival.getRoute().getRoute());
+		assertEquals(2, otherDirectionArrival.getRoute().getRun());
 	}
 	
 	@Test

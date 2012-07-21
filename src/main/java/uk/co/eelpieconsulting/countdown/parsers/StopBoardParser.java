@@ -15,8 +15,9 @@ import uk.co.eelpieconsulting.countdown.model.StopBoard;
 public class StopBoardParser {
 
 	private static final int ROUTE = 1;
-	private static final int DIRECTION = 0;
-	private static final int DESTINATION = 2;
+	private static final int DIRECTION = 2;
+	private static final int DESTINATION = 3;
+	private static final int ESTIMATED_ARRIVAL = 4;
 	
 	private static final String NEW_LINE = "\n";
 	
@@ -33,10 +34,9 @@ public class StopBoardParser {
 			final List<Arrival> arrivals = new ArrayList<Arrival>();
 			for (int i = 1; i < lines.length; i++) {
 				final JSONArray arrivalJson =  new JSONArray(lines[i]);
-				long estimatedWait = (Long.parseLong(arrivalJson.getString(3)) - timestamp) / 1000;
-				
 				final Route route = new Route(arrivalJson.getString(ROUTE), arrivalJson.getInt(DIRECTION), arrivalJson.getString(DESTINATION));				
-				arrivals.add(new Arrival(route, estimatedWait));
+				final long estimatedArrival = (Long.parseLong(arrivalJson.getString(ESTIMATED_ARRIVAL)) - timestamp) / 1000;				
+				arrivals.add(new Arrival(route, estimatedArrival));
 			}
 			Collections.sort(arrivals);			
 			return new StopBoard(timestamp, arrivals);

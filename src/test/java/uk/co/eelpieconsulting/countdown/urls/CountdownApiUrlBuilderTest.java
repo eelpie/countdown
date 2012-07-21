@@ -17,7 +17,7 @@ public class CountdownApiUrlBuilderTest {
 	
 	@Test
 	public void canConstructUrlForStopBoardJSONRequest() {				
-		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550&ReturnList=LineName,DestinationText,EstimatedTime", urlBuilder.getStopBoardUrl(53550));
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550&ReturnList=LineName,DestinationText,DirectionID,EstimatedTime", urlBuilder.getStopBoardUrl(53550));
 	}
 	
 	@Test
