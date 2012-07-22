@@ -1,5 +1,8 @@
 package uk.co.eelpieconsulting.countdown.urls;
 
+import java.util.List;
+
+
 public class CountdownApiUrlBuilder {
 
 	private static final String STOP_BOARD_RETURN_CODES = "LineName,DestinationText,DirectionID,EstimatedTime";
@@ -21,6 +24,19 @@ public class CountdownApiUrlBuilder {
 	
 	public String getStopIdSearchUrl(int id) {
 		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + id + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;						
+	}
+
+	public String getStopDetailsUrl(List<Integer> stopIds) {
+		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + join(stopIds) + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;
+	}
+
+	private String join(List<Integer> stopIds) {
+		final StringBuilder output = new StringBuilder();
+		for (int i : stopIds) {
+			output.append(Integer.toString(i) + ",");
+		}
+		final String out = output.toString();
+		return out.substring(0, out.length() -1);
 	}
 
 }

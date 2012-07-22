@@ -39,6 +39,10 @@ public class CountdownApi {
 	public List<Stop> findStopsWithin(double latitude, double longitude, int radius) throws HttpFetchException, ParsingException {
 		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getMarkerSearchUrl(latitude, longitude, radius), "UTF-8"));
 	}
+	
+	public List<Stop> getStopDetails(List<Integer> stopIds) throws HttpFetchException, ParsingException {
+		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopDetailsUrl(stopIds), "UTF-8"));
+	}
 
 	public List<Stop> findStopById(int id) throws HttpFetchException, ParsingException {
 		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopIdSearchUrl(id), "UTF-8"));

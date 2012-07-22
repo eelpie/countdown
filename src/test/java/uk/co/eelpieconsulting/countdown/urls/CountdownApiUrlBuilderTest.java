@@ -2,6 +2,9 @@ package uk.co.eelpieconsulting.countdown.urls;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,13 +24,19 @@ public class CountdownApiUrlBuilderTest {
 	}
 	
 	@Test
-	public void canConstructUrlForMarkerSearch() throws Exception {
+	public void canConstructUrlForStopSearch() throws Exception {
 		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?Circle=51.454,-0.351,250&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getMarkerSearchUrl(51.454, -0.351, 250));		
 	}
 	
 	@Test
 	public void canConstructUrlForStopIdSearch() throws Exception {
 		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getStopIdSearchUrl(53550));
+	}
+	
+	@Test
+	public void canConstructMultipleStopDetailsQueryUrl() throws Exception {
+		List<Integer> stopIds = Arrays.asList(53550,53551,53552);
+		assertEquals("http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?StopCode1=53550,53551,53552&ReturnList=StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude", urlBuilder.getStopDetailsUrl(stopIds));
 	}
 
 }
