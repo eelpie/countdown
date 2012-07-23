@@ -7,6 +7,7 @@ public class CountdownApiUrlBuilder {
 
 	private static final String STOP_BOARD_RETURN_CODES = "LineName,DestinationText,DirectionID,EstimatedTime";
 	private static final String STOP_SEARCH_RETURN_CODES = "StopCode1,StopPointName,Towards,StopPointIndicator,Latitude,Longitude";
+	private static final String STOP_MESSAGE_RETURN_CODES = "StopCode1,MessageUUID,MessageText,MessagePriority,StartTime,ExpireTime";
 	
 	private String apiUrl;
 
@@ -18,7 +19,11 @@ public class CountdownApiUrlBuilder {
 		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + stopId + "&ReturnList=" + STOP_BOARD_RETURN_CODES;
 	}
 	
-	public String getMarkerSearchUrl(double latitude, double longitude, int radius) {
+	public String getStopMessagesUrl(int stopId) {
+		return apiUrl + "/interfaces/ura/instant_V1?StopCode1=" + stopId + "&ReturnList=" + STOP_MESSAGE_RETURN_CODES;
+	}
+	
+	public String getStopSearchUrl(double latitude, double longitude, int radius) {
 		return apiUrl + "/interfaces/ura/instant_V1?Circle=" + latitude + "," + longitude + "," + radius + "&ReturnList=" + STOP_SEARCH_RETURN_CODES;
 	}
 	
@@ -38,5 +43,5 @@ public class CountdownApiUrlBuilder {
 		final String out = output.toString();
 		return out.substring(0, out.length() -1);
 	}
-
+	
 }

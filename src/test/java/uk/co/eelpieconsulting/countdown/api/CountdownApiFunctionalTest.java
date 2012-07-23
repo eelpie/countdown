@@ -1,5 +1,6 @@
 package uk.co.eelpieconsulting.countdown.api;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.co.eelpieconsulting.busroutes.model.Message;
 import uk.co.eelpieconsulting.busroutes.model.Stop;
 import uk.co.eelpieconsulting.countdown.model.Arrival;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
@@ -52,6 +54,15 @@ public class CountdownApiFunctionalTest {
 		assertEquals(1, matches.size());
 		assertEquals(53550, matches.get(0).getId());
 		assertEquals("York Street / Twickenham", matches.get(0).getName());
+	}
+	
+	@Test
+	public void canLoadMessagesForStop() throws Exception {
+		List<Message> messages = api.getStopMessages(53551);
+	
+		for (Message message : messages) {
+			System.out.println(message.getStopId() + ": " + message.getMessage());
+		}
 	}
 	
 	// Example usage for README file

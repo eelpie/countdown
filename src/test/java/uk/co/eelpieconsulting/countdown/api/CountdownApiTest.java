@@ -15,6 +15,7 @@ import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
+import uk.co.eelpieconsulting.countdown.parsers.StopMessageParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
 import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
@@ -34,6 +35,7 @@ public class CountdownApiTest {
 	@Mock HttpFetcher httpFetcher;	
 	@Mock StopBoardParser stopBoardParser;
 	@Mock StopSearchParser stopSearchParser;
+	@Mock StopMessageParser stopMessageParser;
 	
 	@Mock StopBoard stopBoard;
 	@Mock List<Stop> stops;
@@ -43,7 +45,7 @@ public class CountdownApiTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser);
+		api = new CountdownApi(countdownApiUrlBuilder, httpFetcher, stopBoardParser, stopSearchParser, stopMessageParser);
 	}
 	
 	@Test
@@ -76,7 +78,7 @@ public class CountdownApiTest {
 	
 	@Test
 	public void canSearchForStopsWithinBoundingBox() throws Exception {
-		when(countdownApiUrlBuilder.getMarkerSearchUrl(LAT, LNG, RADIUS)).thenReturn(STOP_SEARCH_URL);
+		when(countdownApiUrlBuilder.getStopSearchUrl(LAT, LNG, RADIUS)).thenReturn(STOP_SEARCH_URL);
 		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
 		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
 		
