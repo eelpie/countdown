@@ -25,5 +25,10 @@ public class Arrival implements Comparable<Arrival> {
 		long diff = estimatedWait - o.getEstimatedWait();
 		return diff < 0 ? -1 : 1;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Arrival [route=" + route + ", estimatedWait=" + estimatedWait + "]";
+	}
+
 }
