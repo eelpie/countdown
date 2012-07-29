@@ -16,25 +16,25 @@ import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 public class CountdownApi {
 	
 	final private CountdownApiUrlBuilder countdownApiUrlBuilder;
-	final private HttpFetcher httpFetcher;
 	final private StopBoardParser stopBoardParser;
 	final private StopSearchParser stopSearchParser;
 	final private StopMessageParser stopMessageParser;
+	final private HttpFetcher httpFetcher;
 
 	public CountdownApi(String apiUrl) {
 		this.countdownApiUrlBuilder = new CountdownApiUrlBuilder(apiUrl);
-		this.httpFetcher = new HttpFetcher();
 		this.stopBoardParser = new StopBoardParser();
 		this.stopSearchParser = new StopSearchParser();
 		this.stopMessageParser = new StopMessageParser();
+		this.httpFetcher = new HttpFetcher();
 	}
 	
 	public CountdownApi(CountdownApiUrlBuilder countdownApiUrlBuilder, HttpFetcher httpFetcher, StopBoardParser stopBoardParser, StopSearchParser stopSearchParser, StopMessageParser stopMessageParser) {
 		this.countdownApiUrlBuilder = countdownApiUrlBuilder;
-		this.httpFetcher = httpFetcher;
 		this.stopBoardParser = stopBoardParser;
 		this.stopSearchParser = stopSearchParser;
 		this.stopMessageParser = stopMessageParser;
+		this.httpFetcher = httpFetcher;
 	}
 	
 	public StopBoard getStopBoard(int stopId) throws HttpFetchException, ParsingException {
