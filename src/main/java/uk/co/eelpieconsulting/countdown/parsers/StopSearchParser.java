@@ -32,8 +32,10 @@ public class StopSearchParser {
 				final JSONArray stopJson =  new JSONArray(lines[i]);
 				if (!stopJson.isNull(STOP_ID)) {
 					stops.add(new Stop(Integer.parseInt(stopJson.getString(STOP_ID)),
-							stopJson.getString(STOP_NAME), stopJson.getString(TOWARDS),
-							stopJson.isNull(STOP_INDICATOR) ? null : stopJson.getString(STOP_INDICATOR), stopJson.getDouble(LATITUDE),
+							stopJson.getString(STOP_NAME), 
+							stopJson.isNull(TOWARDS) ? null : stopJson.getString(TOWARDS),
+							stopJson.isNull(STOP_INDICATOR) ? null : stopJson.getString(STOP_INDICATOR),
+							stopJson.getDouble(LATITUDE),
 							stopJson.getDouble(LONGITUDE), null, null));
 				}
 			}

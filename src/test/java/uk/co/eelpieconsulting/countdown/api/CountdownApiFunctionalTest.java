@@ -1,9 +1,9 @@
 package uk.co.eelpieconsulting.countdown.api;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -63,6 +63,14 @@ public class CountdownApiFunctionalTest {
 		for (Message message : messages) {
 			System.out.println(message.getStopId() + ": " + message.getMessage());
 		}
+	}
+	
+	@Test
+	public void towardsFieldForEndStopsShouldBeNull() throws Exception {
+		final List<Stop> matches = api.findStopById(52572);
+		Stop stop = matches.get(0);
+		
+		assertNull(stop.getTowards());
 	}
 	
 	// Example usage for README file
