@@ -36,7 +36,7 @@ public class StopSearchParser {
 							stopJson.isNull(TOWARDS) ? null : stopJson.getString(TOWARDS),
 							stopJson.isNull(STOP_INDICATOR) ? null : stopJson.getString(STOP_INDICATOR),
 							stopJson.getDouble(LATITUDE),
-							stopJson.getDouble(LONGITUDE), null, null));
+							stopJson.getDouble(LONGITUDE), null, null, null));
 				}
 			}
 			return stops;
