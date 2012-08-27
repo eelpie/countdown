@@ -11,14 +11,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import uk.co.eelpieconsulting.busroutes.model.Stop;
-import uk.co.eelpieconsulting.countdown.exceptions.HttpFetchException;
+import uk.co.eelpieconsulting.common.http.HttpFetchException;
+import uk.co.eelpieconsulting.common.http.HttpFetcher;
 import uk.co.eelpieconsulting.countdown.exceptions.ParsingException;
 import uk.co.eelpieconsulting.countdown.model.StopBoard;
 import uk.co.eelpieconsulting.countdown.parsers.StopBoardParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopMessageParser;
 import uk.co.eelpieconsulting.countdown.parsers.StopSearchParser;
 import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
-import uk.co.eelpieconsulting.countdown.util.HttpFetcher;
 
 public class CountdownApiTest {
 	
@@ -51,7 +51,7 @@ public class CountdownApiTest {
 	@Test
 	public void canFetchStopboardFromLiveApiEndpoints() throws Exception {		
 		when(countdownApiUrlBuilder.getStopBoardUrl(STOPBOARD_ID)).thenReturn(STOPBOARD_URL);
-		when(httpFetcher.fetchContent(STOPBOARD_URL, "UTF-8")).thenReturn(STOPBOARD_JSON);
+		when(httpFetcher.fetchContent(STOPBOARD_URL)).thenReturn(STOPBOARD_JSON);
 		when(stopBoardParser.parse(STOPBOARD_JSON)).thenReturn(stopBoard);
 		
 		StopBoard returnedStopBoard = api.getStopBoard(STOPBOARD_ID);
@@ -62,7 +62,7 @@ public class CountdownApiTest {
 	@Test(expected = HttpFetchException.class)
 	public void shouldThrowInformativeExceptionIfHttpFetchFails() throws Exception {
 		when(countdownApiUrlBuilder.getStopBoardUrl(STOPBOARD_ID)).thenReturn(STOPBOARD_URL);
-		when(httpFetcher.fetchContent(STOPBOARD_URL, "UTF-8")).thenThrow(new HttpFetchException());
+		when(httpFetcher.fetchContent(STOPBOARD_URL)).thenThrow(new HttpFetchException());
 		
 		api.getStopBoard(STOPBOARD_ID);
 	}
@@ -70,7 +70,7 @@ public class CountdownApiTest {
 	@Test(expected = ParsingException.class)
 	public void shouldThrowInformativeExceptionIfParsingFails() throws Exception {
 		when(countdownApiUrlBuilder.getStopBoardUrl(STOPBOARD_ID)).thenReturn(STOPBOARD_URL);
-		when(httpFetcher.fetchContent(STOPBOARD_URL, "UTF-8")).thenReturn(STOPBOARD_JSON);
+		when(httpFetcher.fetchContent(STOPBOARD_URL)).thenReturn(STOPBOARD_JSON);
 		when(stopBoardParser.parse(STOPBOARD_JSON)).thenThrow(new ParsingException());
 		
 		api.getStopBoard(STOPBOARD_ID);
@@ -79,7 +79,7 @@ public class CountdownApiTest {
 	@Test
 	public void canSearchForStopsWithinBoundingBox() throws Exception {
 		when(countdownApiUrlBuilder.getStopSearchUrl(LAT, LNG, RADIUS)).thenReturn(STOP_SEARCH_URL);
-		when(httpFetcher.fetchContent(STOP_SEARCH_URL, "UTF-8")).thenReturn(STOP_SEARCH_JSON);
+		when(httpFetcher.fetchContent(STOP_SEARCH_URL)).thenReturn(STOP_SEARCH_JSON);
 		when(stopSearchParser.parse(STOP_SEARCH_JSON)).thenReturn(stops);
 		
 		List<Stop> returnedStops = api.findStopsWithin(LAT, LNG, RADIUS);
