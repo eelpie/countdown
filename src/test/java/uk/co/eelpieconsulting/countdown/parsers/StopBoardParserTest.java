@@ -1,6 +1,11 @@
 package uk.co.eelpieconsulting.countdown.parsers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +48,21 @@ public class StopBoardParserTest {
 		for (Arrival arrival : stopBoard.getArrivals()) {
 			assertTrue(arrival.getEstimatedWait() >= previousWait);
 			previousWait = arrival.getEstimatedWait();
+		}		
+	}
+	
+	@Test
+	public void testName() throws Exception {
+		final StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard_with_duplicates.json"));
+
+		final List<Arrival> arrivals = stopBoard.getArrivals();
+		
+		Set<Arrival> uniqueArrivals = new HashSet<Arrival>();		
+		for (Arrival arrival : arrivals) {
+			if (uniqueArrivals.contains(arrival)) {
+				fail("Arrival is a duplicate: " + arrival);				
+			}
+			uniqueArrivals.add(arrival);
 		}		
 	}
 	
