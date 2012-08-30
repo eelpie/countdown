@@ -36,7 +36,11 @@ public class StopBoardParser {
 				final JSONArray arrivalJson =  new JSONArray(lines[i]);
 				final Route route = new Route(arrivalJson.getString(ROUTE), arrivalJson.getInt(DIRECTION), arrivalJson.getString(DESTINATION));				
 				final long estimatedArrival = (Long.parseLong(arrivalJson.getString(ESTIMATED_ARRIVAL)) - timestamp) / 1000;				
-				arrivals.add(new Arrival(route, estimatedArrival));
+				
+				final Arrival arrival = new Arrival(route, estimatedArrival);
+				if (!arrivals.contains(arrival)) {
+					arrivals.add(arrival);
+				}
 			}
 			Collections.sort(arrivals);			
 			return new StopBoard(timestamp, arrivals);

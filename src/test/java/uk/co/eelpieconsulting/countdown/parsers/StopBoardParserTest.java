@@ -52,7 +52,7 @@ public class StopBoardParserTest {
 	}
 	
 	@Test
-	public void testName() throws Exception {
+	public void duplicateArrivalsShouldBeFilteredOut() throws Exception {
 		final StopBoard stopBoard = stopBoardParser.parse(ContentLoader.loadContent("stopboard_with_duplicates.json"));
 
 		final List<Arrival> arrivals = stopBoard.getArrivals();
