@@ -15,11 +15,11 @@ import uk.co.eelpieconsulting.countdown.urls.CountdownApiUrlBuilder;
 
 public class CountdownApi {
 	
-	final private CountdownApiUrlBuilder countdownApiUrlBuilder;
-	final private StopBoardParser stopBoardParser;
-	final private StopSearchParser stopSearchParser;
-	final private StopMessageParser stopMessageParser;
-	final private HttpFetcher httpFetcher;
+	private final CountdownApiUrlBuilder countdownApiUrlBuilder;
+	private final StopBoardParser stopBoardParser;
+	private final StopSearchParser stopSearchParser;
+	private final StopMessageParser stopMessageParser;
+	private final HttpFetcher httpFetcher;
 
 	public CountdownApi(String apiUrl) {
 		this.countdownApiUrlBuilder = new CountdownApiUrlBuilder(apiUrl);
@@ -38,23 +38,23 @@ public class CountdownApi {
 	}
 	
 	public StopBoard getStopBoard(int stopId) throws HttpFetchException, ParsingException {
-		return stopBoardParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopBoardUrl(stopId)));
+		return stopBoardParser.parse(httpFetcher.get(countdownApiUrlBuilder.getStopBoardUrl(stopId)));
 	}
 
 	public List<Stop> findStopsWithin(double latitude, double longitude, int radius) throws HttpFetchException, ParsingException {
-		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopSearchUrl(latitude, longitude, radius)));
+		return stopSearchParser.parse(httpFetcher.get(countdownApiUrlBuilder.getStopSearchUrl(latitude, longitude, radius)));
 	}
 	
 	public List<Stop> getStopDetails(List<Integer> stopIds) throws HttpFetchException, ParsingException {
-		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopDetailsUrl(stopIds)));
+		return stopSearchParser.parse(httpFetcher.get(countdownApiUrlBuilder.getStopDetailsUrl(stopIds)));
 	}
 	
 	public List<Message> getStopMessages(int stopId) throws HttpFetchException, ParsingException {
-		return stopMessageParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopMessagesUrl(stopId)));
+		return stopMessageParser.parse(httpFetcher.get(countdownApiUrlBuilder.getStopMessagesUrl(stopId)));
 	}
 	
 	public List<Stop> findStopById(int id) throws HttpFetchException, ParsingException {
-		return stopSearchParser.parse(httpFetcher.fetchContent(countdownApiUrlBuilder.getStopIdSearchUrl(id)));
+		return stopSearchParser.parse(httpFetcher.get(countdownApiUrlBuilder.getStopIdSearchUrl(id)));
 	}
 	
 }
